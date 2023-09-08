@@ -1,0 +1,665 @@
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\documentclass[
+	% -- opções da classe memoir --
+	12pt,				% tamanho da fonte
+	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	oneside,			% para impressão em verso e anverso. Oposto a oneside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	english,			% idioma adicional para hifenização
+	french,				% idioma adicional para hifenização
+	spanish,			% idioma adicional para hifenização
+	brazil				% o último idioma é o principal do documento
+	]{abntex2}
+
+% ---
+% Pacotes básicos 
+% ---
+\usepackage{lmodern}			% Usa a fonte Latin Modern			
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{lastpage}			% Usado pela Ficha catalográfica
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{subcaption}
+\usepackage{microtype} 
+\usepackage{amssymb}
+\usepackage{amsmath}			% para melhorias de justificação
+\usepackage{mathtools}          %loads amsmath as well
+\DeclarePairedDelimiter\Floor\lfloor\rfloor
+\DeclarePairedDelimiter\Ceil\lceil\rceil
+% ---
+\usepackage{soulutf8}
+\usepackage{todonotes}
+\let\added\undefined			% neutralize \added command
+\let\deleted\undefined			% neutralize \delete command
+\usepackage{changes}
+%\usepackage[final]{changes}	% Versão sem mostrar as mudanças no texto.
+\definechangesauthor[name={Julio Cesar Marques da Rocha}]{UFPB}
+
+
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}				% para geração de dummy text
+% ---
+
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+
+% --- 
+% CONFIGURAÇÕES DE PACOTES
+% --- 
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{O Colapso da Função de Onda e o Confinamento de Férmions na Inflação Taquiônica}
+\autor{Julio Cesar Marques da Rocha}
+\local{João Pessoa - PB}
+\data{Fevereiro/2022}
+\orientador{Francisco de Assis Brito}
+%\coorientador{Equipe \abnTeX}
+\instituicao{%
+  Universidade Federal da Paraíba -- UFPB
+  \par
+  Departamento de Física
+  \par
+  Programa de Pós-Graduação em Física}
+\tipotrabalho{Tese (Doutorado)}
+% O preambulo deve conter o tipo do trabalho, o objetivo, 
+% o nome da instituição e a área de concentração 
+\preambulo{Tese de doutorado  apresentada ao Programa de Pós-graduação em Física da Universidade Federal da Paraíba como requisito parcial para a obtenção do grau de Doutor em Física.}
+% ---
+
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=blue,
+		bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% \pretextual
+
+% ---
+% Capa
+% ---
+%%%%%%%%%%%%% 
+% Mude aqui para usar capa limpa ou customizada (dentro de Includes)
+%\imprimircapa
+\input{Includes/Capa}
+% ---
+
+% ---
+% Folha de rosto
+% (o * indica que haverá a ficha bibliográfica)
+% ---
+\imprimirfolhaderosto*
+% ---
+
+% ---
+% Inserir a ficha bibliografica
+% ---
+
+% Isto é um exemplo de Ficha Catalográfica, ou ``Dados internacionais de
+% catalogação-na-publicação''. Você pode utilizar este modelo como referência. 
+% Porém, provavelmente a biblioteca da sua universidade lhe fornecerá um PDF
+% com a ficha catalográfica definitiva após a defesa do trabalho. Quando estiver
+% com o documento, salve-o como PDF no diretório do seu projeto e substitua todo
+% o conteúdo de implementação deste arquivo pelo comando abaixo:
+%
+% \begin{fichacatalografica}
+%     \includepdf{fig_ficha_catalografica.pdf}
+% \end{fichacatalografica}
+%
+%\begin{fichacatalografica}
+%	\sffamily
+%	\vspace*{\fill}					% Posição vertical
+%	\begin{center}					% Minipage Centralizado
+%	\fbox{\begin{minipage}[c][8cm]{13.5cm}		% Largura
+%	\small
+%	\imprimirautor
+%	%Sobrenome, Nome do autor
+%	
+%	\hspace{0.5cm} \imprimirtitulo  / \imprimirautor. --
+%	\imprimirlocal, \imprimirdata-
+%	
+%	\hspace{0.5cm} \pageref{LastPage} p. : il. (algumas color.) ; 30 cm.\\
+%	
+%	\hspace{0.5cm} \imprimirorientadorRotulo~\imprimirorientador\\
+%	
+%	\hspace{0.5cm}
+%	\parbox[t]{\textwidth}{\imprimirtipotrabalho~--~\imprimirinstituicao,
+%	\imprimirdata.}\\
+%	
+%	\hspace{0.5cm}
+%		1. Palavra-chave1.
+%		2. Palavra-chave2.
+%		2. Palavra-chave3.
+%		I. Orientador.
+%		II. Universidade xxx.
+%		III. Faculdade de xxx.
+%		IV. Título 			
+%	\end{minipage}}
+%	\end{center}
+%\end{fichacatalografica}
+%% ---
+%
+%% ---
+%% Inserir errata
+%% ---
+%\begin{errata}
+%Elemento opcional da \citeonline[4.2.1.2]{NBR14724:2011}. Exemplo:
+%
+%\vspace{\onelineskip}
+%
+%FERRIGNO, C. R. A. \textbf{Tratamento de neoplasias ósseas apendiculares com
+%reimplantação de enxerto ósseo autólogo autoclavado associado ao plasma
+%rico em plaquetas}: estudo crítico na cirurgia de preservação de membro em
+%cães. 2011. 128 f. Tese (Livre-Docência) - Faculdade de Medicina Veterinária e
+%Zootecnia, Universidade de São Paulo, São Paulo, 2011.
+%
+%\begin{table}[htb]
+%\center
+%\footnotesize
+%\begin{tabular}{|p{1.4cm}|p{1cm}|p{3cm}|p{3cm}|}
+%  \hline
+%   \textbf{Folha} & \textbf{Linha}  & \textbf{Onde se lê}  & \textbf{Leia-se}  \\
+%    \hline
+%    1 & 10 & auto-conclavo & autoconclavo\\
+%   \hline
+%\end{tabular}
+%\end{table}
+%
+%\end{errata}
+% ---
+
+% ---
+% Inserir folha de aprovação
+% ---
+
+% Isto é um exemplo de Folha de aprovação, elemento obrigatório da NBR
+% 14724/2011 (seção 4.2.1.3). Você pode utilizar este modelo até a aprovação
+% do trabalho. Após isso, substitua todo o conteúdo deste arquivo por uma
+% imagem da página assinada pela banca com o comando abaixo:
+%
+% \includepdf{folhadeaprovacao_final.pdf}
+%
+\begin{folhadeaprovacao}
+
+  \begin{center}
+    {\ABNTEXchapterfont\large\imprimirautor}
+
+    \vspace*{\fill}\vspace*{\fill}
+    \begin{center}
+      \ABNTEXchapterfont\bfseries\Large\imprimirtitulo
+    \end{center}
+    \vspace*{\fill}
+    
+    \hspace{.45\textwidth}
+    \begin{minipage}{.5\textwidth}
+        \imprimirpreambulo
+    \end{minipage}%
+    \vspace*{\fill}
+   \end{center}
+        
+    \imprimirlocal, 04 de Fevereiro de 2022:
+
+   \assinatura{\textbf{\imprimirorientador} \\ Orientador} 
+   \assinatura{\textbf{Dionísio Bazeia Filho} \\ Membro Interno -- UFPB}
+   \assinatura{\textbf{Albert Petrov} \\ Membro Interno -- UFPB}
+   \assinatura{\textbf{Amílcar R. Queiroz} \\ Membro Externo -- UFCG}
+   \assinatura{\textbf{Carlos Alberto S. de Almeida} \\ Membro Externo -- UFC}
+      
+   \begin{center}
+    \vspace*{0.5cm}
+    {\large\imprimirlocal}
+    \par
+    {\large\imprimirdata}
+    \vspace*{1cm}
+  \end{center}
+  
+\end{folhadeaprovacao}
+% ---
+
+% ---
+% Dedicatória
+% ---
+\begin{dedicatoria}
+   \vspace*{\fill}
+   \centering
+   \noindent
+   \textit{ Este trabalho é dedicado às crianças adultas que,\\
+   quando pequenas, sonharam em se tornar cientistas.} \vspace*{\fill}
+\end{dedicatoria}
+% ---
+
+% ---
+% Agradecimentos
+% ---
+\begin{agradecimentos}
+
+Agradeço a Deus por todas as conquistas. Ao professor Francisco de Assis de Brito pela orientação e oportunidade de realização deste trabalho. A todos os professores que contribuíram com minha formação acadêmica. Aos amigos do departamento de física pelas discussões e apoio. Ao programa de pós graduação em física da UFPB pela oportunidade de realização do doutorado em física. A CAPES pelo apoio financeiro.
+
+\end{agradecimentos}
+% ---
+
+% ---
+% Epígrafe
+% ---
+\begin{epigrafe}
+    \vspace*{\fill}
+	\begin{flushright}
+		\textit{``Não vos amoldeis às estruturas deste mundo, \\
+		mas transformai-vos pela renovação da mente, \\
+		a fim de distinguir qual é a vontade de Deus: \\
+		o que é bom, o que Lhe é agradável, o que é perfeito.\\
+		(Bíblia Sagrada, Romanos 12, 2)}
+	\end{flushright}
+\end{epigrafe}
+% ---
+
+% ---
+% RESUMOS
+% ---
+
+% resumo em português
+\setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
+\begin{resumo}
+ Nesta tese abordamos o modelo de colapso por localização espontânea na teoria da inflação taquiônica. Após uma breve imersão no modelo cosmológico padrão, adentramos na teoria da inflação dirigida por um campo escalar taquiônico, que, ao mesmo tempo em que gera a expansão inicial, suas flutuações no vácuo são responsáveis pela emergência de perturbações primordiais, necessárias para a formação das estruturas em larga escala observadas hoje. Em meio a transição entre a fase quântica e a fase clássica, nos deparamos com o problema da medida, o qual consiste em explicar como ocorre o colapso da função de onda neste contexto. Uma solução proposta foi a teoria de colapso por localização espontânea, a qual mostrou-se viável e de acordo com as observações atuais. Ao estudar o regime inflacionário em baixas energias, podemos analisar o confinamento de férmions na matéria taquiônica e a correlação entre a temperatura de confinamento e a temperatura de reaquecimento na transição inflação-radiação. 
+
+ \textbf{Palavras-chave}: inflação. problema da medida. Confinamento de férmions.
+\end{resumo}
+
+% resumo em inglês
+\begin{resumo}[Abstract]
+ \begin{otherlanguage*}{english}
+   In this thesis we approach the spontaneous location collapse model in the tachyonic inflation theory. After a brief immersion in the standard cosmological model, we enter the theory of inflation driven by a tachyonic scalar field, which, while generating the initial expansion, its fluctuations in vacuum are responsible for the emergence of primordial perturbations, necessary for the formation of large-scale structures observed today. In the midst of the transition between the quantum phase and the classical phase, we are faced with the measurement problem, which consists of explaining how the collapse of the wave function occurs in this context. A proposed solution was the theory of collapse by spontaneous location, which proved to be viable and in accordance with current observations. By studying the inflationary regime at low energies, we can analyze the confinement of fermions in tachyonic matter and the correlation between the confinement temperature and the reheat temperature in the inflation-radiation transition.
+
+   \vspace{\onelineskip}
+ 
+   \noindent 
+   \textbf{Keywords}: inflation. measurement problem. fermions confinement.
+ \end{otherlanguage*}
+\end{resumo}
+
+% resumo em francês 
+%\begin{resumo}[Résumé]
+% \begin{otherlanguage*}{french}
+%    Il s'agit d'un résumé en français.
+% 
+%   \textbf{Mots-clés}: latex. abntex. publication de textes.
+% \end{otherlanguage*}
+%\end{resumo}
+%
+%% resumo em espanhol
+%\begin{resumo}[Resumen]
+% \begin{otherlanguage*}{spanish}
+%   Este es el resumen en español.
+%  
+%   \textbf{Palabras clave}: latex. abntex. publicación de textos.
+% \end{otherlanguage*}
+%\end{resumo}
+% ---
+
+% ---
+% inserir lista de ilustrações
+% ---
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de tabelas
+% ---
+%\pdfbookmark[0]{\listtablename}{lot}
+%\listoftables*
+%\cleardoublepage
+% ---
+
+% ---
+% inserir lista de abreviaturas e siglas
+% ---
+\begin{siglas}
+  \item[RG]  Relatividade Geral
+  \item[RCF] Radiação Cósmica de Fundo
+  \item[CLE] Colapso por Localização Espontânea
+\end{siglas}
+% ---
+
+% ---
+% inserir lista de símbolos
+% ---
+\begin{simbolos}
+  \item[$ H $] Constante de Hubble - $H_{0} = ( 67.66\,\pm\, 0.42 )\,\mbox{km/s/Mpc}$
+  \item[$ M_{p} $] Massa de Planck - $M_{p}=\frac{1}{\sqrt{8\pi G}}\sim 2.4\times 10^{18}\,\mbox{GeV}$
+  \item[$ c_{s} $] Velocidade do som no fluido taquiônico
+  \item[$ \Theta $] Campo taquiônico
+\end{simbolos}
+% ---
+
+% ---
+% inserir o sumario
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
+% ----------------------------------------------------------
+\chapter*[INTRODUÇÃO]{Introdução}
+\addcontentsline{toc}{chapter}{INTRODUÇÃO}
+% ----------------------------------------------------------
+O advento da cosmologia moderna, conhecido como \emph{modelo padrão da cosmologia}, 
+é baseado na renomada teoria da relatividade geral, apresentada por Albert Einstein 
+em 1915 e publicada em 1916 \cite{EINSTEIN}. Os elementos fundamentais do modelo 
+cosmológico são o \emph{princípio cosmológico}, que estabele que o universo é 
+homogêneo e isotrópico em largas escalas, e as \emph{equações de Einstein}, que 
+estabelece a relação entre conteúdo material e geometria do espaço tempo. Por intermédio desses 
+princípios, podemos descrever a evolução do universo desde o passado até o futuro e,
+possivelmente, o estado inicial deste. A base fenomenológica que se seguiu com a descoberta 
+da \emph{radiação cósmica de fundo} na faixa de microondas \cite{PENZIAS}, em 1964, veio a trazer uma 
+importante confirmação experimental para o modelo do \emph{Big Bang}, modelo este que prevê que o 
+universo originou-se de um estado muito quente e denso e cuja expansão afetou a estrutura do espaço tempo.
+Contudo, o modelo do Big Bang apresentou alguns problemas, tais como o o problema do horizonte, o problema da 
+planura, o problema dos monopolos magnéticos, entre outros, os quais tiveram solução proposta por Alan Guth, 
+em 1981, com o modelo inflacionário \cite{GUTH}.
+
+O mecanismo inflacionário, além de solucionar os problemas mencionados, possibilita o estudo das perturbações 
+cosmológicas primordiais, que são flutuações do vácuo que atuam como as sementes das estruturas em largas escalas
+ que observamos hoje. Estas, ao ultrapassar a era da radiação, deixa assinaturas na radiação cósmica de fundo, permitindo 
+ uma comprovação experimental. Em cenários mais simples, a inflação ocorre quando um campo escalar rola lentamente para 
+ o mínimo do seu potencial, o que causa uma expansão exponencial do fator de escala com o tempo e, ao mesmo tempo, produz 
+ perturbações de densidade com um espectro de potências quase invariante com a escala. Entre os vários campos escalares 
+ utilizados, daremos ênfase ao \emph{campo taquiônico}, que aparecem em vários contextos, tal como na Teoria das Cordas.
+ 
+O táquion é uma partícula hipotética cuja velocidade excede a velocidade da luz. Embora não seja possível acelerar uma partícula
+  com massa até que ela atinja ou ultrapasse a velocidade da luz, segundo a Teoria da Relatividade Especial,
+   esta não impede a existência de partículas com velocidade superior à da luz em seu estado natural. Os modelos com campo taquiônico possuem um termo cinético não canônico e são usualmente chamados de $k$-inflação \cite{ARMENDARIZPICON}. No tratamento da Teoria Quântica de Campos, 
+ táquions são entendidos como uma instabilidade do sistema, ao passo que, em teoria das cordas a ação efetiva resultante do 
+ decaimento de D-branas gera modos taquiônicos que se comportam como um campo escalar \cite{Sen_2002,PhysRevD.62.126003}. Tal descrição pode ser utilizada para descrever o universo inflacionário e o surgimento das flutuações primordiais, estas, por sua vez, passarão de um regime quântico, em seguida um regime semi-clássico até se tornarem perturbações clássicas, responsáveis pela formação das estruturas no universo observável. No entanto, essa passagem da fase quântica para a fase clássica traz a tona o chamado \emph{problema da medida}: flutuações homogêneas descritas por um estado quântico colapsam e se tornam inomogêneas, descritas por uma perturbação. A origem do problema remonta estudos mais gerais sobre a interpretação de Copenhaguem e a mecânica quântica \cite{RevModPhys.75.715,Kristian,Peierls_1991}. 
+ 
+Neste trabalho, vamos investigar a ocorrência do colapso da função de onda na inflação taquiônica através \emph{colapso por localização espontânea}, um dos modelos de colapso mais aceitos atualmente e que descreve o colapso como uma modificação da equação de Schr\"{o}dinger e, por consequência, tratando uma evolução temporal modificada. Dada a relação entre as perturbações e o espectro de potências, é possível obter a modificação deste último e, com isso, relacionar fenomenologicamente o parâmetro de colapso e os índices espectrais, que são medidos pelo Planck. Portanto, esse trabalho está organizado da seguinte forma: no capítulo 1 faremos uma revisão acerca do modelo cosmológico padrão e os motivos que levaram ao estudo da inflação do universo. No capítulo 2 é inserida a inflação taquiônica , desde a sua derivação a partir da teoria das cordas, a condensação em teorias D-branas, o modelo efetivo que descreve inflação, a inflação slow-roll e possíveis potenciais que concordam com as observações atuais. No capítulo 3 trataremos das perturbações cosmológicas a níveis escalar, vetorial e tensorial, a fim de obter os espectros de potências e os índices espectrais, além de verificar fenomenologicamente os potencias descritos no capítulo 2. No capítulo 4 daremos ênfase ao problema da medida, sua origem e implicações, tanto na mecânica quântica como na inflação. No capítulo 5 é introduzido o modelo de colapso por localização espontânea e sua correlação com as obervações. No capítulo 6 estudaremos o confinamento de férmions no cenário em que a inflação se encerra e ocorre o reaquecimento, possibilitando a transição do cenário inflacionário para a era da radiação. E, finalmente, apresentaremos nossas considerações finais e perspectivas. Em todo o trabalho adotamos a assinatura da métrica como $(-,+,+,+)$ e $\hbar = c = k_{B} = 1$.
+
+
+% ----------------------------------------------------------
+% PARTE
+% ----------------------------------------------------------
+\part{Inomogeneidades no Universo: A Inflação Taquiônica}
+% ----------------------------------------------------------
+
+% ---
+% Capitulo com exemplos de comandos inseridos de arquivo externo 
+% ---
+%\input{abntex2-modelo-include-comandos}
+\input{Capitulos/Capitulo1}
+% ---
+\input{Capitulos/Capitulo2}
+% ---
+\input{Capitulos/Capitulo3}
+% ----------------------------------------------------------
+% PARTE
+% ----------------------------------------------------------
+\part{O Colapso da Função de Onda no Universo Primordial}
+% ----------------------------------------------------------
+
+\input{Capitulos/Capitulo4}
+
+\input{Capitulos/Capitulo5}
+
+\input{Capitulos/Capitulo6}
+% ----------------------------------------------------------
+\phantompart
+
+% ---
+% Conclusão
+% ---
+\chapter*[CONCLUSÕES E PERSPECTIVAS]{Conclusões e Perspectivas}
+\addcontentsline{toc}{chapter}{CONCLUSÕES E PERSPECTIVAS}
+% ---
+Nesta tese abordamos a teoria da inflação taquiônica como descritora da expansão inicial do universo, na qual cenários como o problema da 
+medida e o confinamento na matéria surgiram. Vimos que o campo taquiônico surge das teorias das cordas e apresenta características que o tornam plausível na descrição da inflação. Ao mesmo tempo em que gera a inflação, flutuações primordiais surgem do vácuo quântico, dando origem a perturbações que são a semente para a formação posterior de estruturas em larga escala. Ao aplicar para alguns potenciais, conseguimos vincular seus parâmetros com as observações, obtendo valores expressivos em concordância com os dados mais recentes. 
+
+Por outro lado, a transição quântica-clássica trouxe a tona o problema da medida, em que o colapso da função de onda apresenta descrição incompleta na mecânica quântica padrão. O modelo de colapso por localização espontânea mostrou-se viável e pudemos compreender melhor a transição, vinculando os parâmetros da teoria com os dados observacionais. O espectro de perturbações, necessário para fazer a ponte entre a teoria e as observações, é modificado pela função de colapso e seu comportamento altera-se significativamente para valores da função longe do limite invariante de escala. 
+
+O estudo do confinamento de férmions na inflação foi abordado a partir das correções térmicas do potencial que caracteriza este efeito. A inflação, dirigida pelo campo escalar, é um bom laboratório no qual teorias como a CDQ podem ser testadas. A partir da função de partição obtivemos o potencial efetivo, de modo a inserir a temperatura na teoria. O resultado é uma dependência dos parâmetros do potencial com a temperatura, onde a temperatura crítica depende do potencial químico e determina as fases de confinamento ou desconfinamento. A partir deste estudo, modelos de transição de fase na CDQ no universo primordial podem ser abordadas, levando a um melhor entendimento dos processos iniciais do universo.
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+% ----------------------------------------------------------
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{abntex2-modelo-references}
+%\include{Capitulos/Referencias.tex}
+% ----------------------------------------------------------
+% Glossário
+% ----------------------------------------------------------
+%
+% Consulte o manual da classe abntex2 para orientações sobre o glossário.
+%
+%\glossary
+
+% ----------------------------------------------------------
+% Apêndices
+% ----------------------------------------------------------
+
+% ---
+% Inicia os apêndices
+% ---
+\begin{apendicesenv}
+
+% Imprime uma página indicando o início dos apêndices
+\partapendices
+
+% ----------------------------------------------------------
+\chapter{Teoria das perturbações}\label{ApA}
+%% ----------------------------------------------------------
+%
+A métrica perturbada pode ser escrita como
+\begin{eqnarray}\label{A1}
+g_{\mu\nu}=\bar{g}_{\mu\nu}+\delta g_{\mu\nu}\,\mbox{,}
+\end{eqnarray}
+onde $\bar{g}_{\mu\nu}$ é a métrica de fundo com componentes
+\begin{eqnarray}\label{A2}
+\bar{g}_{00}=-1\,\mbox{,}\quad \bar{g}_{0i}=\bar{g}_{i0}=0\,\mbox{,} \quad \bar{g}_{\mu\nu}=a^{2}(t)\delta_{ij}
+\end{eqnarray}
+e $\delta g_{\mu\nu}\ll \bar{g}_{\mu\nu}$ é uma pequena perturbação na métrica que satisfaz a seguinte relação
+\begin{eqnarray}\label{A3}
+\delta g^{\mu\nu}=-\bar{g}^{\mu\rho}\bar{g}^{\nu\lambda}\delta g_{\rho\lambda}\,\mbox{.}
+\end{eqnarray}
+Para o calibre Newtoniano, temos as componentes componentes
+\begin{eqnarray}\label{A4}
+\delta g_{00}=-2\Phi \,\mbox{,}\quad \delta g_{i0}=\delta g_{0i}=0\,\mbox{,}\quad \delta g_{ij}=-2a^{2}(t)\zeta\delta_{ij}\mbox{,}\nonumber\\
+\delta g^{00}=2\Phi \,\mbox{,}\quad \delta g^{0i}=\delta g^{i0}=0\,\mbox{,}\quad \delta g^{ij}=2a^{-2}(t)\zeta\delta^{ij}\mbox{.}
+\end{eqnarray}
+
+Os símbolos de Christoffel são obtidos pela definição
+\begin{eqnarray}\label{A5}
+\Gamma_{\mu\nu}^{\rho}=\frac{1}{2}g^{\rho\alpha}\left(\partial_{\nu}g_{\mu\alpha}+\partial_{\mu}g_{\alpha\nu}-\partial_{\alpha}g_{\mu\nu}\right)
+\end{eqnarray}
+e possuem componentes dadas por
+\begin{eqnarray}\label{A6}
+\Gamma_{00}^{0}=\dot{\Phi}\,\mbox{,}\,\,\Gamma_{0i}^{0}=\partial_{i}\Phi\,\mbox{,}\,\,\Gamma_{00}^{i}=\frac{1}{a^{2}}\partial_{i}\Phi\,\mbox{,}\,\,\Gamma_{jk}^{i}=\delta^{il}\left(\partial_{l}\zeta\delta_{jk}-\partial_{k}\zeta\delta_{jl}-\partial_{j}\zeta\delta_{lk}\right)\,\mbox{,}\nonumber\\
+\Gamma_{0j}^{i}=(H-\dot{\zeta})\delta_{j}^{i}\,\mbox{,}\,\,\Gamma_{ij}^{0}=a\dot{a}\left(1-2\Phi -2\zeta\right)\delta_{ij}-a^{2}\dot{\zeta}\delta_{ij}
+\end{eqnarray}
+
+Para o tensor de Ricci
+\begin{eqnarray}\label{A7}
+R_{\mu\nu}=\partial_{\rho}\Gamma_{\mu\nu}^{\rho}-\partial_{\nu}\Gamma_{\rho\mu}^{\rho}+\Gamma_{\mu\nu}^{\rho}\Gamma_{\rho\lambda}^{\lambda}-\Gamma_{\lambda\nu}^{\rho}\Gamma_{\rho\mu}^{\lambda}
+\end{eqnarray}
+temos as componentes
+\begin{eqnarray}\label{A8}
+R_{00} &=& -3(\dot{H}+H^{2})+3\ddot{\zeta}+3H\dot{\Phi}+6H\dot{\zeta}+\frac{\nabla^{2}\Phi}{a^{2}}\nonumber\\
+R_{i0} &=& 2\partial_{i}(\dot{\zeta}+H\Phi)\nonumber\\
+R_{ij} &=& a^{2}\left[(\dot{H}+3H^{2})(1-2\Phi -2\zeta)-H\dot{\Phi}-6H\dot{\zeta}-\ddot{\zeta} +\frac{\nabla^{2}\zeta}{a^{2}}\right]\delta_{ij}\nonumber\\
+&-& \partial_{i}\partial_{j}(\Phi - \zeta)\,\mbox{.}
+\end{eqnarray}
+Logo o escalar de Ricci será:
+\begin{eqnarray}\label{A9}
+R = 6(\dot{H}+2H^{2})-6H\dot{\Phi}-6\ddot{\zeta}-\frac{2\nabla^{2}(\Phi -2\zeta)}{a^{2}}-24H\dot{\zeta}-24H^{2}\Phi -12\dot{H}\Phi\,\mbox{.}
+\end{eqnarray}
+
+Com estes resultados, as componentes do tensor de Einstein são
+\begin{eqnarray}\label{A10}
+G_{0}^{0} &=& -3H^{2}+6H\dot{\zeta}-\frac{2\nabla^{2}\zeta}{a^{2}}+6H^{2}\Phi\nonumber\\
+G_{i}^{0} &=& \partial_{i}(\dot{\zeta}+H\Phi)\nonumber\\
+G_{j}^{i} &=& \left[-2\dot{H}-3H^{2}+6H^{2}\Phi +4\dot{H}\Phi +2H\dot{\Phi} +6H\dot{\zeta}+2\ddot{\zeta}+\frac{\nabla^{2}(\Phi -\zeta)}{a^{2}}\right]\delta_{j}^{i}\nonumber\\
+&-& \frac{\partial^{i}\partial_{j}(\Phi -\zeta)}{a^{2}}
+\end{eqnarray}
+
+A perturbação no tensor energia momentum é dada por
+\begin{eqnarray}\label{A11}
+T_{0}^{0} &=& - \frac{(V(\bar{\Theta})+V_{\Theta}\delta\Theta)}{\sqrt{1-\alpha^{\prime}\dot{\bar{\Theta}}^{2}}}+\frac{\alpha^{\prime}\dot{\bar{\Theta}}V(\bar{\Theta})(\dot{\bar{\Theta}}\Phi - \dot{\delta\Theta})}{(1-\alpha^{\prime}\dot{\bar{\Theta}}^{2})^{3/2}}\nonumber\\
+T_{i}^{0} &=& -\frac{\alpha^{\prime}\dot{\bar{\Theta}}V(\bar{\Theta})\partial_{i}\delta\Theta}{\sqrt{1-\alpha^{\prime}\dot{\bar{\Theta}}^{2}}}\\
+T_{j}^{i} &=& \left[-(V(\bar{\Theta})+V_{\Theta}\delta\Theta)\sqrt{1-\alpha^{\prime}\dot{\bar{\Theta}}^{2}}-\frac{\alpha^{\prime}\dot{\bar{\Theta}}V(\bar{\Theta})(\dot{\bar{\Theta}}\Phi - \dot{\delta\Theta})}{\sqrt{1-\alpha^{\prime}\dot{\bar{\Theta}}^{2}}}\right]\delta_{j}^{i}\nonumber
+\end{eqnarray}
+%\lipsum[50]
+%
+%% ----------------------------------------------------------
+%\chapter{Nullam elementum urna vel imperdiet sodales elit ipsum pharetra ligula
+%ac pretium ante justo a nulla curabitur tristique arcu eu metus}
+%% ----------------------------------------------------------
+%\lipsum[55-57]
+
+\end{apendicesenv}
+% ---
+
+
+% ----------------------------------------------------------
+% Anexos
+% ----------------------------------------------------------
+
+% ---
+% Inicia os anexos
+% ---
+\begin{anexosenv}
+
+% Imprime uma página indicando o início dos anexos
+\partanexos
+
+% ---
+\chapter{Publicações}
+%% ---
+%\lipsum[30]
+%
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.5]{Imagens/publicacao.PNG}
+%\caption{Plano $n_{s}-r$ para alguns valores de $\delta$ para o potencial efetivo.}
+\label{fig8.1}
+\end{figure}
+%% ---
+%\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis
+%parturient montes nascetur ridiculus mus}
+%% ---
+%
+%\lipsum[31]
+%
+%% ---
+%\chapter{Fusce facilisis lacinia dui}
+%% ---
+%
+%\lipsum[32]
+
+\end{anexosenv}
+
+%---------------------------------------------------------------------
+% INDICE REMISSIVO
+%---------------------------------------------------------------------
+\phantompart
+\printindex
+%---------------------------------------------------------------------
+
+\end{document}
